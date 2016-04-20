@@ -20,8 +20,11 @@
         <div ng-if="searching" class="messages">Searching Flickr for images tagged '{{searchTerm}}'</div>
         <div ng-if="dataReturned" class="messages">We found {{totalPhotos | number:0}} images of '{{searchTerm}}'</div>
         <div ng-if="errorReturned" class="messages">Errrr...there was an error!</div>
-
-
+    </div>
+    <div ng-if="dataReturned" class="results">
+        <ul id="photo-list">
+            <li ng-repeat="img in urlStore"><img src={{img}}></li>
+        </ul>
     </div>
 </body>
 </html>

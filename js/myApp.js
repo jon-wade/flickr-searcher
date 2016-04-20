@@ -19,6 +19,12 @@ angular.module('myApp', ['ngAnimate'])
         //variable to store number of photos returned to be displayed on the UI
         $scope.totalPhotos;
 
+        //variable to store the img src urls of all the images returned
+        //$scope.imageSrc;
+
+        //array to store img src urls
+        $scope.urlStore = [];
+
         //run this when you hit submit
         $scope.submit = function(){
 
@@ -61,6 +67,9 @@ angular.module('myApp', ['ngAnimate'])
                     //display the dataReturned message
                     $scope.dataReturned = true;
 
+                    //call function to pull out all the relevant data from response object to format the image src attributes
+                    parseData(response);
+
 
                 })
                 .error(function(response){
@@ -71,6 +80,22 @@ angular.module('myApp', ['ngAnimate'])
                     $scope.errorReturned = true;
 
                 })
+        };
+
+        var parseData = function(response){
+
+
+            for (var i=0; i< response.photos.photo.length; i++) {
+                var farm = response.photos.photo[i].farm;
+                var server = response.photos.photo[i].server;
+                var secret = response.photos.photo[i].secret;
+                var id = response.photos.photo[i].id;
+
+                $scope.urlStore[i] = 'https://farm' + farm + '.staticflickr.com/' + server + '/' + id + '_' + secret + '.jpg';
+            }
+
+            //$scope.imageSrc = urlStore[10];
+            console.log(urlStore);
         };
 
 
