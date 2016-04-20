@@ -14,11 +14,11 @@
     <div class="center">
         <h1 id="title">Flickr Searcher</h1>
         <form name="search" id="search" ng-submit="submit()">
-            <input type="text" id="inputBox" name="inputBox" ng-model="inputBox" required>
+            <input title="input-box" type="text" id="inputBox" name="inputBox" ng-model="inputBox" required>
             <button type="submit" name="searchButton" id="searchButton">Search</button>
         </form>
         <div ng-if="searching" class="messages">Searching Flickr for images tagged '{{searchTerm}}'</div>
-        <div ng-if="dataReturned" class="messages">We found {number variable} of '{{searchTerm}}'</div>
+        <div ng-if="dataReturned" class="messages">We found {{totalPhotos | number:0}} images of '{{searchTerm}}'</div>
         <div ng-if="errorReturned" class="messages">Errrr...there was an error!</div>
 
 
