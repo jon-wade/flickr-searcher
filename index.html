@@ -17,8 +17,8 @@
             <input type="text" id="inputBox" name="inputBox" ng-model="inputBox" required>
             <button type="submit" name="searchButton" id="searchButton">Search</button>
         </form>
-        <div ng-if="searching" class="messages">Searching Flickr for images tagged '{{inputBox}}'</div>
-        <div ng-if="dataReturned" class="messages">We found {number variable} of '{{inputBox}}'</div>
+        <div ng-if="searching" class="messages">Searching Flickr for images tagged '{{searchTerm}}'</div>
+        <div ng-if="dataReturned" class="messages">We found {number variable} of '{{searchTerm}}'</div>
         <div ng-if="errorReturned" class="messages">Errrr...there was an error!</div>
 
 

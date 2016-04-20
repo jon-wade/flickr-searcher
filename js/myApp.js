@@ -13,9 +13,29 @@ angular.module('myApp', ['ngAnimate'])
         //variable that is true when an error occurs and allows the display of an error on the UI
         $scope.errorReturned = true;
 
+        //variable to store the search term
+        $scope.searchTerm='';
+
         //run this when you hit submit
         $scope.submit = function(){
-            alert('search pressed');
+            $scope.searchTerm = $scope.inputBox;
+            $scope.inputBox = '';
+            alert($scope.searchTerm);
+
+
+
+        };
+
+
+
+
+        var url = 'https://api.flickr.com/services/rest';
+        var params = {
+            method: 'flickr.photos.search',
+            //api_key: api_key,
+            //tags: search_tag,
+            format: 'json',
+            nojsoncallback: 1
         };
 
 
