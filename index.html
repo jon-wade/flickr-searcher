@@ -1,16 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="myApp">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <script src="https://code.jquery.com/jquery-2.2.3.min.js"
-            integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.js"></script>
+    <script src="js/myApp.js"></script>
     <title></title>
 </head>
-<body>
+<body ng-controller="myCtrl">
+    <div class="center">
+        <h1 id="title">Flickr Searcher</h1>
+        <form name="search" id="search" ng-submit="submit()">
+            <input type="text" id="inputBox" name="inputBox" ng-model="inputBox" required>
+            <button type="submit" name="searchButton" id="searchButton">Search</button>
+        </form>
+        <div ng-if="searching" class="messages">Searching Flickr for images tagged '{{inputBox}}'</div>
+        <div ng-if="dataReturned" class="messages">We found {number variable} of '{{inputBox}}'</div>
+        <div ng-if="errorReturned" class="messages">Errrr...there was an error!</div>
 
+
+    </div>
 </body>
 </html>
