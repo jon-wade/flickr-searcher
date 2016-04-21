@@ -9,10 +9,16 @@ html {
     text-align: center;
 }
 
+ul {
+    padding-left: 18px;
+}
+
 div.messages {
     margin-top: 30px;
 }
 
 ul#photo-list li {
     display: inline-block;
+    border: 1px black solid;
+    margin: 2px;
 }

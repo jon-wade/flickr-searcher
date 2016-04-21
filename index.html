@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js"
+            integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.js"></script>
     <script src="js/myApp.js"></script>
@@ -21,9 +23,11 @@
         <div ng-if="dataReturned" class="messages">We found {{totalPhotos | number:0}} images of '{{searchTerm}}'</div>
         <div ng-if="errorReturned" class="messages">Errrr...there was an error!</div>
     </div>
-    <div ng-if="dataReturned" class="results">
+    <div ng-if="imagesLoaded" class="results">
         <ul id="photo-list">
-            <li ng-repeat="img in urlStore"><img src={{img}}></li>
+            <li ng-repeat="img in imageStore" id="{{$index}}"><img ng-src="
+                {{img.src}}" width="{{img.width}}" height="{{img.height}}">
+            </li>
         </ul>
     </div>
 </body>

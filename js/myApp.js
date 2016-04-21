@@ -1,11 +1,9 @@
 
-angular.module('myApp', ['ngAnimate'])
-    .controller('myCtrl', function($scope, $http){
-        //angular app code goes here
-
+var app = angular.module('myApp', ['ngAnimate'])
+    .controller('myCtrl', function($scope, $http, $timeout){
 
         //variable that allows the display of a searching message
-        $scope.searching = true;
+        $scope.searching = false;
 
         //variable that is true when data is found and allows the display of a confirmation message on the UI
         $scope.dataReturned = false;
@@ -13,20 +11,26 @@ angular.module('myApp', ['ngAnimate'])
         //variable that is true when an error occurs and allows the display of an error on the UI
         $scope.errorReturned = false;
 
+        //variable to display results once loaded
+        $scope.imagesLoaded = false;
+
         //variable to store the search term
         $scope.searchTerm='';
 
         //variable to store number of photos returned to be displayed on the UI
         $scope.totalPhotos;
 
-        //variable to store the img src urls of all the images returned
-        //$scope.imageSrc;
-
         //array to store img src urls
         $scope.urlStore = [];
 
+        //array to store image objects
+        $scope.imageStore = [];
+
         //run this when you hit submit
         $scope.submit = function(){
+
+            //display searching message for at least two seconds
+            $scope.searching = true;
 
             //store search term in a variable to allow us to clear the input box
             $scope.searchTerm = $scope.inputBox;
@@ -36,8 +40,6 @@ angular.module('myApp', ['ngAnimate'])
 
             //perform the JSON call to the API
             getData();
-
-
 
         };
 
@@ -64,11 +66,10 @@ angular.module('myApp', ['ngAnimate'])
                     //set the totalPhotos variable ready for display on screen
                     $scope.totalPhotos = response.photos.total;
 
-                    //display the dataReturned message
-                    $scope.dataReturned = true;
-
                     //call function to pull out all the relevant data from response object to format the image src attributes
                     parseData(response);
+
+
 
 
                 })
@@ -91,19 +92,45 @@ angular.module('myApp', ['ngAnimate'])
                 var secret = response.photos.photo[i].secret;
                 var id = response.photos.photo[i].id;
 
+                //construct the src and store each in an array
                 $scope.urlStore[i] = 'https://farm' + farm + '.staticflickr.com/' + server + '/' + id + '_' + secret + '.jpg';
+                //create an image object for each image so it's possible to extract the height and width attributes before loading onto a page (and amend)
+                $scope.imageStore[i] = new Image();
+                $scope.imageStore[i].src = $scope.urlStore[i];
+
+
+
             }
 
-            //$scope.imageSrc = urlStore[10];
-            console.log(urlStore);
+            console.log($scope.urlStore);
+            console.log($scope.imageStore);
+
+            $timeout(function(){
+                for (var i=0; i<$scope.imageStore.length; i++){
+                    $scope.imageStore[i].height = 50;
+                    $scope.imageStore[i].width = 50;
+                    console.log('Image ' + i + ' height=' + $scope.imageStore[i].height);
+                    console.log('Image ' + i + ' width=' + $scope.imageStore[i].width);
+
+                }
+
+                //render the images in the UI
+                $scope.imagesLoaded = true;
+
+                //hide the searching message
+                $scope.searching = false;
+
+                //display the dataReturned message
+                $scope.dataReturned = true;
+
+            }, 3000);
+
         };
 
-
-
-
-
-
-
-
-
     });
+
+
+
+
+
+
