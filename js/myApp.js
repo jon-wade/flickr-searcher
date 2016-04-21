@@ -1,6 +1,6 @@
 
 var app = angular.module('myApp', ['ngAnimate'])
-    .controller('myCtrl', function($scope, $http, $timeout){
+    .controller('myCtrl', function($scope, $http, $q, $timeout){
 
         //variable that allows the display of a searching message
         $scope.searching = false;
@@ -83,30 +83,32 @@ var app = angular.module('myApp', ['ngAnimate'])
                 })
         };
 
-        var parseData = function(response){
+        var parseData = function(response) {
 
+            function grabImages() {
+                return $q(function (resolve, reject) {
+                    for (var i = 0; i < response.photos.photo.length; i++) {
+                        var farm = response.photos.photo[i].farm;
+                        var server = response.photos.photo[i].server;
+                        var secret = response.photos.photo[i].secret;
+                        var id = response.photos.photo[i].id;
 
-            for (var i=0; i< response.photos.photo.length; i++) {
-                var farm = response.photos.photo[i].farm;
-                var server = response.photos.photo[i].server;
-                var secret = response.photos.photo[i].secret;
-                var id = response.photos.photo[i].id;
-
-                //construct the src and store each in an array
-                $scope.urlStore[i] = 'https://farm' + farm + '.staticflickr.com/' + server + '/' + id + '_' + secret + '.jpg';
-                //create an image object for each image so it's possible to extract the height and width attributes before loading onto a page (and amend)
-                $scope.imageStore[i] = new Image();
-                $scope.imageStore[i].src = $scope.urlStore[i];
-
-
-
+                        //construct the src and store each in an array
+                        $scope.urlStore[i] = 'https://farm' + farm + '.staticflickr.com/' + server + '/' + id + '_' + secret + '.jpg';
+                        //create an image object for each image so it's possible to extract the height and width attributes before loading onto a page (and amend)
+                        $scope.imageStore[i] = new Image();
+                        $scope.imageStore[i].src = $scope.urlStore[i];
+                        resolve();
+                    }
+                })
             }
 
-            console.log($scope.urlStore);
-            console.log($scope.imageStore);
+            grabImages().then(console.log($scope.urlStore)).then(console.log($scope.imageStore)).then(resizeImages());
 
-            $timeout(function(){
-                for (var i=0; i<$scope.imageStore.length; i++){
+
+            function resizeImages() {
+                for (var i = 0; i < $scope.imageStore.length; i++) {
+                    //set images to 50x50 thumbnails (for now)
                     $scope.imageStore[i].height = 50;
                     $scope.imageStore[i].width = 50;
                     console.log('Image ' + i + ' height=' + $scope.imageStore[i].height);
@@ -123,9 +125,8 @@ var app = angular.module('myApp', ['ngAnimate'])
                 //display the dataReturned message
                 $scope.dataReturned = true;
 
-            }, 3000);
-
-        };
+            }
+        }
 
     });
 
