@@ -105,8 +105,10 @@ var app = angular.module('myApp', ['ngAnimate'])
                         $scope.imageStore[i] = new Image();
                         $scope.imageStore[i].src = $scope.urlStore[i];
                     }
-                    console.log('Waiting for 1, 2, 3...');
-                    setTimeout(function(){console.log('Timeout finished! Go...'); resolve();}, 10000);
+                    console.log('Waiting for 1, 2, 3...10 seconds');
+
+
+                    setTimeout(function(){console.log('Timeout finished! Go...'); $scope.searching = false; resolve();}, 10000);
                 })
             }
 
@@ -133,9 +135,6 @@ var app = angular.module('myApp', ['ngAnimate'])
 
                 //render the images in the UI
                 $scope.imagesLoaded = true;
-
-                //hide the searching message
-                $scope.searching = false;
 
                 //display the dataReturned message
                 $scope.dataReturned = true;

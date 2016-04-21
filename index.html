@@ -14,12 +14,15 @@
 </head>
 <body ng-controller="myCtrl">
     <div class="center">
-        <h1 id="title">Flickr Searcher</h1>
+        <img src="img/flickr-logo-transparent.png" height="150" width="200" alt="flickr-logo" title="flick-logo"><h1 id="title">Searcher</h1>
         <form name="search" id="search" ng-submit="submit()">
             <input title="input-box" type="text" id="inputBox" name="inputBox" ng-model="inputBox" required>
             <button type="submit" name="searchButton" id="searchButton">Search</button>
         </form>
-        <div ng-if="searching" class="messages">Searching, retrieving and resizing images from Flickr tagged '{{searchTerm}}'.</div>
+        <div ng-if="searching" class="messages">
+            <p>Searching, retrieving and resizing images from Flickr tagged '{{searchTerm}}'.</p>
+            <div id="progress-bar"></div>
+        </div>
         <div ng-if="dataReturned" class="messages">We found {{totalPhotos | number:0}} images of '{{searchTerm}}'. Click on an image to zoom to full size.</div>
         <div ng-if="errorReturned" class="messages">Errrr...there was an error!</div>
     </div>

@@ -9,6 +9,16 @@ html {
     text-align: center;
 }
 
+h1#title {
+    position: relative;
+    top:-85px;
+    margin: 0.67em 0 0 0;
+}
+
+button#searchButton {
+    height: 25px;
+}
+
 body{
     background-color: black;
     color: white;
@@ -21,6 +31,22 @@ ul {
 div.messages {
     margin-top: 30px;
 }
+
+div#progress-bar {
+    width: 300px;
+    height: 30px;
+    background-color: #0063DB;
+    border: 2px white solid;
+    margin: 0 auto;
+    animation: shrink 11s;
+    border-radius: 5px;
+}
+
+@keyframes shrink {
+    0% {width:300px;}
+    100% {width: 0px;}
+}
+
 
 ul#photo-list li {
     display: inline-block;
