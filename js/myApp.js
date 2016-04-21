@@ -1,6 +1,6 @@
 
 var app = angular.module('myApp', ['ngAnimate'])
-    .controller('myCtrl', function($scope, $http, $q, $timeout){
+    .controller('myCtrl', function($scope, $http, $q){
 
         //variable that allows the display of a searching message
         $scope.searching = false;
@@ -18,7 +18,7 @@ var app = angular.module('myApp', ['ngAnimate'])
         $scope.searchTerm='';
 
         //variable to store number of photos returned to be displayed on the UI
-        $scope.totalPhotos;
+        $scope.totalPhotos=null;
 
         //array to store img src urls
         $scope.urlStore = [];
@@ -31,6 +31,12 @@ var app = angular.module('myApp', ['ngAnimate'])
 
             //display searching message for at least two seconds
             $scope.searching = true;
+
+            //hide any previous messages
+            $scope.dataReturned = false;
+            $scope.errorReturned = false;
+            $scope.imagesLoaded = false;
+
 
             //store search term in a variable to allow us to clear the input box
             $scope.searchTerm = $scope.inputBox;
@@ -86,7 +92,7 @@ var app = angular.module('myApp', ['ngAnimate'])
         var parseData = function(response) {
 
             function grabImages() {
-                return $q(function (resolve, reject) {
+                return $q(function (resolve) {
                     for (var i = 0; i < response.photos.photo.length; i++) {
                         var farm = response.photos.photo[i].farm;
                         var server = response.photos.photo[i].server;
@@ -98,8 +104,8 @@ var app = angular.module('myApp', ['ngAnimate'])
                         //create an image object for each image so it's possible to extract the height and width attributes before loading onto a page (and amend)
                         $scope.imageStore[i] = new Image();
                         $scope.imageStore[i].src = $scope.urlStore[i];
-                        resolve();
                     }
+                    resolve();
                 })
             }
 
