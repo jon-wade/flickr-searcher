@@ -105,10 +105,22 @@ var app = angular.module('myApp', ['ngAnimate'])
                         $scope.imageStore[i] = new Image();
                         $scope.imageStore[i].src = $scope.urlStore[i];
                     }
-                    console.log('Waiting for 1, 2, 3...10 seconds');
 
 
-                    setTimeout(function(){console.log('Timeout finished! Go...'); $scope.searching = false; resolve();}, 10000);
+                    function checkObject(){
+                        console.log('checking...');
+                        if ($scope.imageStore[99].width > 0){
+                            $scope.searching = false;
+                            resolve();
+                        }
+                        else {
+                            console.log('Nope, not yet...waiting a second');
+                            setTimeout(function(){checkObject();}, 1000);
+                        }
+                    }
+                    console.log('Checking to see if the damn image store object has updated...');
+                    checkObject();
+
                 })
             }
 
