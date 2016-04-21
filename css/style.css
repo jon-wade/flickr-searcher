@@ -32,26 +32,19 @@ div.messages {
     margin-top: 30px;
 }
 
-div#progress-bar {
-    width: 300px;
-    height: 30px;
-    background-color: #0063DB;
-    border: 2px white solid;
-    margin: 0 auto;
-    animation: shrink 11s;
-    border-radius: 5px;
-}
-
-@keyframes shrink {
-    0% {width:300px;}
-    100% {width: 0px;}
-}
-
-
 ul#photo-list li {
     display: inline-block;
 
     margin: 2px;
+}
+
+div#spinner {
+    text-align: center;
+}
+
+div#spinner img {
+    position: relative;
+    top: -50px;
 }
 
 ul#photo-list li img {
@@ -63,4 +56,8 @@ ul#photo-list li img {
 .zoom {
     height: 100%;
     width: 100%;
+}
+
+div.results {
+    margin-top:50px;
 }

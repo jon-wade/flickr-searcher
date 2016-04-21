@@ -21,7 +21,7 @@
         </form>
         <div ng-if="searching" class="messages">
             <p>Searching, retrieving and resizing images from Flickr tagged '{{searchTerm}}'.</p>
-            <div id="progress-bar"></div>
+            <div id="spinner"><img src="img/loading.gif" width="200" height="200" title="loading-image" alt="loading-image"></div>
         </div>
         <div ng-if="dataReturned" class="messages">We found {{totalPhotos | number:0}} images of '{{searchTerm}}'. Click on an image to zoom to full size.</div>
         <div ng-if="errorReturned" class="messages">Errrr...there was an error!</div>
