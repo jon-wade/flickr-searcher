@@ -2,15 +2,20 @@ html {
     border: 0;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
 }
 
 .center {
     text-align: center;
 }
 
+body{
+    background-color: black;
+    color: white;
+}
+
 ul {
-    padding-left: 18px;
+    padding-left: 10px;
 }
 
 div.messages {
@@ -19,6 +24,17 @@ div.messages {
 
 ul#photo-list li {
     display: inline-block;
-    border: 1px black solid;
+
     margin: 2px;
+}
+
+ul#photo-list li img {
+    vertical-align: top;
+    border: 2px black solid;
+    transition: all cubic-bezier(0, 0, 0, 1.25) 0.5s;
+}
+
+.zoom {
+    height: 100%;
+    width: 100%;
 }

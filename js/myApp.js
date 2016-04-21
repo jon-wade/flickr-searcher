@@ -1,4 +1,5 @@
 
+
 var app = angular.module('myApp', ['ngAnimate'])
     .controller('myCtrl', function($scope, $http, $q){
 
@@ -25,6 +26,8 @@ var app = angular.module('myApp', ['ngAnimate'])
 
         //array to store image objects
         $scope.imageStore = [];
+
+
 
         //run this when you hit submit
         $scope.submit = function(){
@@ -75,9 +78,6 @@ var app = angular.module('myApp', ['ngAnimate'])
                     //call function to pull out all the relevant data from response object to format the image src attributes
                     parseData(response);
 
-
-
-
                 })
                 .error(function(response){
                     console.log('ERROR!');
@@ -105,18 +105,27 @@ var app = angular.module('myApp', ['ngAnimate'])
                         $scope.imageStore[i] = new Image();
                         $scope.imageStore[i].src = $scope.urlStore[i];
                     }
-                    resolve();
+                    console.log('Waiting for 1, 2, 3...');
+                    setTimeout(function(){console.log('Timeout finished! Go...'); resolve();}, 10000);
                 })
             }
 
-            grabImages().then(console.log($scope.urlStore)).then(console.log($scope.imageStore)).then(resizeImages());
+            grabImages().then(function(){console.log($scope.urlStore); console.log($scope.imageStore);}).then(function(){resizeImages();});
 
 
             function resizeImages() {
                 for (var i = 0; i < $scope.imageStore.length; i++) {
                     //set images to 50x50 thumbnails (for now)
-                    $scope.imageStore[i].height = 50;
-                    $scope.imageStore[i].width = 50;
+                    var currentHeight =  $scope.imageStore[i].height;
+                    var currentWidth = $scope.imageStore[i].width;
+
+                    console.log(currentHeight, currentWidth);
+
+                    var newHeight = 100;
+                    var newWidth = (newHeight/currentHeight) * currentWidth;
+
+                    $scope.imageStore[i].height = newHeight;
+                    $scope.imageStore[i].width = newWidth;
                     console.log('Image ' + i + ' height=' + $scope.imageStore[i].height);
                     console.log('Image ' + i + ' width=' + $scope.imageStore[i].width);
 
@@ -130,6 +139,7 @@ var app = angular.module('myApp', ['ngAnimate'])
 
                 //display the dataReturned message
                 $scope.dataReturned = true;
+
 
             }
         }

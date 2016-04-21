@@ -19,13 +19,13 @@
             <input title="input-box" type="text" id="inputBox" name="inputBox" ng-model="inputBox" required>
             <button type="submit" name="searchButton" id="searchButton">Search</button>
         </form>
-        <div ng-if="searching" class="messages">Searching Flickr for images tagged '{{searchTerm}}'</div>
-        <div ng-if="dataReturned" class="messages">We found {{totalPhotos | number:0}} images of '{{searchTerm}}'</div>
+        <div ng-if="searching" class="messages">Searching, retrieving and resizing images from Flickr tagged '{{searchTerm}}'.</div>
+        <div ng-if="dataReturned" class="messages">We found {{totalPhotos | number:0}} images of '{{searchTerm}}'. Click on an image to zoom to full size.</div>
         <div ng-if="errorReturned" class="messages">Errrr...there was an error!</div>
     </div>
     <div ng-if="imagesLoaded" class="results">
         <ul id="photo-list">
-            <li ng-repeat="img in imageStore" id="{{$index}}"><img ng-src="
+            <li ng-repeat="img in imageStore"><img ng-click="active=!active" ng-class="{'zoom':active}" ng-src="
                 {{img.src}}" width="{{img.width}}" height="{{img.height}}">
             </li>
         </ul>
